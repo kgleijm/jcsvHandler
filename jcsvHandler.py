@@ -71,3 +71,7 @@ def saveAsCsvAtPath(adress, filename, iterable):
         return outpath
     except PermissionError:
         print("cant write to file, might already be open somewhere\n")
+
+def saveTextAtPath(path, filename, string):
+    with open(path + '\\' + filename + '.txt', 'w') as outfile:
+        outfile.write(string)
