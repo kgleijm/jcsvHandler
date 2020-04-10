@@ -73,5 +73,15 @@ def saveAsCsvAtPath(adress, filename, iterable):
         print("cant write to file, might already be open somewhere\n")
 
 def saveTextAtPath(path, filename, string):
+    try:
+        os.mkdir(path)
+        print('directory created')
+    except:
+        pass
     with open(path + '\\' + filename + '.txt', 'w') as outfile:
         outfile.write(string)
+
+def loadTextFromPath(path):
+    with open(path) as f:
+        return f.readlines()
+
