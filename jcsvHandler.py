@@ -72,6 +72,7 @@ def saveAsCsvAtPath(adress, filename, iterable):
     except PermissionError:
         print("cant write to file, might already be open somewhere\n")
 
+# save and load text at path
 def saveTextAtPath(path, filename, string):
     try:
         os.mkdir(path)
@@ -81,7 +82,23 @@ def saveTextAtPath(path, filename, string):
     with open(path + '\\' + filename + '.txt', 'w') as outfile:
         outfile.write(string)
 
-def loadTextFromPath(path):
+# get text from path as string
+def getTextFromPath(path):
     with open(path) as f:
-        return f.readlines()
+        return str(f.readlines())
+
+# generate folder structure
+def generateBaseFolderStructure(basePath, baseFolderName,*folders):
+
+    basefolder = os.path.join(basePath, baseFolderName)
+    try:
+        os.mkdir(basefolder)
+    except:
+        print("failed generating baseFolder")
+    for folder in folders:
+        try:
+            os.mkdir(os.path.join(basefolder, folder))
+        except:
+            print("failed generating folderStructure: " + folder)
+
 
