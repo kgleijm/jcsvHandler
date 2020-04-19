@@ -93,24 +93,33 @@ def generateFolderStructure(basePath, baseFolderName,*folders):
     basefolder = os.path.join(basePath, baseFolderName)
     try:
         os.mkdir(basefolder)
+        print("made folder: " + basefolder)
     except Exception as e:
-        print("failed generating baseFolder\n" + str(e))
+        pass
+        # print("failed generating baseFolder\n" + str(e))
 
     for folder in folders:
         # if list:   recursively unpack list to make new level(s) in folder structure
         # first string in the list will decide name of new baseMap, following strings  wil name sub-folders
         # sub-folders can have lists as well to add another layer
         if type(folder) is list:
-            print("folderlist is: " + str(folder))
             newBaseFolder = folder[0]
             subFolders = folder[1:]
-            print("new Basefolder: " + str(newBaseFolder))
-            print("subfolders are: " + str(subFolders))
             generateFolderStructure(basefolder, newBaseFolder, *subFolders)
         else:
             try:
-                os.mkdir(os.path.join(basefolder, folder))
+                newfolder = os.path.join(basefolder, folder)
+                os.mkdir(newfolder)
+                print("made folder: " + newfolder)
             except Exception as e:
-                print("failed generating folderStructure: " + folder + "\n" + str(e))
+                pass
+                # print("failed generating folderStructure: " + folder + "\n" + str(e))
 
+def getFolderByName(basePath, folder):
+    for e in os.walk(basePath, topdown=True):
+        if e[0].split('\\')[-1] == folder:
+            print('found: ' + folder)
+            return folder
+    print('folder not found')
+    return None
 
