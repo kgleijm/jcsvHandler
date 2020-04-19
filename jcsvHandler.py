@@ -114,6 +114,7 @@ def generateFolderStructure(basePath, baseFolderName,*folders):
             except Exception as e:
                 pass
                 # print("failed generating folderStructure: " + folder + "\n" + str(e))
+    return basefolder
 
 def getFolderByName(basePath, folder):
     for e in os.walk(basePath, topdown=True):
