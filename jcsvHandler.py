@@ -88,17 +88,29 @@ def getTextFromPath(path):
         return str(f.readlines())
 
 # generate folder structure
-def generateBaseFolderStructure(basePath, baseFolderName,*folders):
+def generateFolderStructure(basePath, baseFolderName,*folders):
 
     basefolder = os.path.join(basePath, baseFolderName)
     try:
         os.mkdir(basefolder)
-    except:
-        print("failed generating baseFolder")
+    except Exception as e:
+        print("failed generating baseFolder\n" + str(e))
+
     for folder in folders:
-        try:
-            os.mkdir(os.path.join(basefolder, folder))
-        except:
-            print("failed generating folderStructure: " + folder)
+        # if list:   recursively unpack list to make new level(s) in folder structure
+        # first string in the list will decide name of new baseMap, following strings  wil name sub-folders
+        # sub-folders can have lists as well to add another layer
+        if type(folder) is list:
+            print("folderlist is: " + str(folder))
+            newBaseFolder = folder[0]
+            subFolders = folder[1:]
+            print("new Basefolder: " + str(newBaseFolder))
+            print("subfolders are: " + str(subFolders))
+            generateFolderStructure(basefolder, newBaseFolder, *subFolders)
+        else:
+            try:
+                os.mkdir(os.path.join(basefolder, folder))
+            except Exception as e:
+                print("failed generating folderStructure: " + folder + "\n" + str(e))
 
 
