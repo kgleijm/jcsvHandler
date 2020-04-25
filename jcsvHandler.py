@@ -124,5 +124,6 @@ def getFolderByName(basePath, folder):
     print('folder not found')
     return None
 
-
+def clearTerminal():
+    print("\n" * 100)
 
